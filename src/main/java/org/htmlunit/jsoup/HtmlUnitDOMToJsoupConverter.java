@@ -26,6 +26,8 @@ import org.w3c.dom.NodeList;
 
 /**
  * Utility class for converting W3C DOM Node trees to jsoup Node trees.
+ *
+ * @author Ronald Brill
  */
 public class HtmlUnitDOMToJsoupConverter {
 

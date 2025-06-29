@@ -24,7 +24,7 @@ Add to your `pom.xml`:
 ```xml
 <dependency>
     <groupId>org.htmlunit</groupId>
-    <artifactId>htmlunit-websocket-client</artifactId>
+    <artifactId>htmlunit-jsoup</artifactId>
     <version>4.13.0</version>
 </dependency>
 ```
@@ -34,7 +34,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'htmlunit-websocket-client', version: '4.13.0'
+implementation group: 'org.htmlunit', name: 'htmlunit-jsoup', version: '4.13.0'
 ```
 
 ### Last CI build
@@ -48,7 +48,7 @@ If you use maven please add:
 
     <dependency>
         <groupId>org.htmlunit</groupId>
-        <artifactId>htmlunit-websocket-client</artifactId>
+        <artifactId>htmlunit-jsoup</artifactId>
         <version>4.14.0-SNAPSHOT</version>
     </dependency>
 
