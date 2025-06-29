@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/org/jsoup/jsoup/1.21.1/jsoup-1.21.1.jar" sourcepath="M2_REPO/org/jsoup/jsoup/1.21.1/jsoup-1.21.1-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/C:/Users/ronald/.m2/repository/org/jsoup/jsoup/1.21.1/jsoup-1.21.1-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
+</classpath>
