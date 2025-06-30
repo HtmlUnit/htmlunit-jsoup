@@ -34,9 +34,9 @@ import org.opentest4j.AssertionFailedError;
  *
  * @author Ronald Brill
  */
-public final class JSoupAssertions {
+public final class JsoupAssertions {
 
-    private JSoupAssertions() {
+    private JsoupAssertions() {
         // Utility class - prevent instantiation
     }
 

@@ -16,7 +16,7 @@ package org.htmlunit.jsoup;
 
 import org.htmlunit.WebClient;
 import org.htmlunit.html.HtmlPage;
-import org.htmlunit.jsoup.utils.JSoupAssertions;
+import org.htmlunit.jsoup.utils.JsoupAssertions;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Node;
 import org.junit.jupiter.api.Test;
@@ -29,9 +29,10 @@ public class HtmlUnitDOMToJsoupConverterTest {
 
             final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
             final Node htmlunitNode = converter.convert(page);
+
             final Node jsoupNode = Jsoup.parse(html);
 
-            JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
+            JsoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
         }
     }
 
