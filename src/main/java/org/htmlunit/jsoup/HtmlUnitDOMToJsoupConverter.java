@@ -17,19 +17,52 @@ package org.htmlunit.jsoup;
 import org.jsoup.nodes.Comment;
 import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.DocumentType;
 import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
+import org.jsoup.nodes.XmlDeclaration;
 import org.jsoup.parser.Tag;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 
 /**
  * Utility class for converting W3C DOM Node trees to jsoup Node trees.
+ * This class uses the Builder pattern.
  *
  * @author Ronald Brill
  */
-public class HtmlUnitDOMToJsoupConverter {
+public final class HtmlUnitDOMToJsoupConverter {
+
+    public static class Builder {
+
+        protected Builder() {
+            super();
+        }
+
+        /**
+         * @return the configured {@link HtmlUnitDOMToJsoupConverter}
+         */
+        public HtmlUnitDOMToJsoupConverter build() {
+            return new HtmlUnitDOMToJsoupConverter();
+        }
+    }
+
+    /**
+     * Create a new builder for configuring an {@link HtmlUnitDOMToJsoupConverter}.
+     *
+     * @return a {@link Builder}
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * Private ctor - use the builder to create a new converter.
+     */
+    private HtmlUnitDOMToJsoupConverter() {
+        super();
+    }
 
     /**
      * Converts a W3C DOM Node to a jsoup Node.
@@ -37,14 +70,16 @@ public class HtmlUnitDOMToJsoupConverter {
      * @param w3cNode The W3C DOM node to convert
      * @return The equivalent jsoup node, or null if conversion fails
      */
-    public static Node convert(final org.w3c.dom.Node w3cNode) {
+    public Node convert(final org.w3c.dom.Node w3cNode) {
         if (w3cNode == null) {
             return null;
         }
 
         switch (w3cNode.getNodeType()) {
             case org.w3c.dom.Node.ELEMENT_NODE:
-                return convertElement(w3cNode);
+                final String tagName = w3cNode.getNodeName().toLowerCase();
+                final Element jsoupElement = new Element(Tag.valueOf(tagName), null);
+                return convertElement(w3cNode, jsoupElement);
 
             case org.w3c.dom.Node.TEXT_NODE:
                 return convertTextNode(w3cNode);
@@ -53,10 +88,17 @@ public class HtmlUnitDOMToJsoupConverter {
                 return convertCommentNode(w3cNode);
 
             case org.w3c.dom.Node.DOCUMENT_NODE:
-                return convertDocumentNode(w3cNode);
+                final Document jsoupDoc = new Document("");
+                return convertElement(w3cNode, jsoupDoc);
 
             case org.w3c.dom.Node.CDATA_SECTION_NODE:
                 return convertCDataNode(w3cNode);
+
+            case org.w3c.dom.Node.PROCESSING_INSTRUCTION_NODE:
+                return convertProcessingInstruction(w3cNode);
+
+            case org.w3c.dom.Node.DOCUMENT_TYPE_NODE:
+                return convertDocumentType(w3cNode);
 
             default:
                 // For unsupported node types, return null or handle as needed
@@ -64,13 +106,7 @@ public class HtmlUnitDOMToJsoupConverter {
         }
     }
 
-    /**
-     * Converts a W3C DOM Element to a jsoup Element
-     */
-    private static Element convertElement(final org.w3c.dom.Node w3cNode) {
-        final String tagName = w3cNode.getNodeName().toLowerCase();
-        final Element jsoupElement = new Element(Tag.valueOf(tagName), "");
-
+    private Element convertElement(final org.w3c.dom.Node w3cNode, final Element jsoupElement) {
         // Convert attributes
         final NamedNodeMap attributes = w3cNode.getAttributes();
         if (attributes != null) {
@@ -95,7 +131,7 @@ public class HtmlUnitDOMToJsoupConverter {
     /**
      * Converts a W3C DOM Text Node to a jsoup TextNode
      */
-    private static TextNode convertTextNode(final org.w3c.dom.Node w3cNode) {
+    private TextNode convertTextNode(final org.w3c.dom.Node w3cNode) {
         final String text = w3cNode.getNodeValue();
         return new TextNode(text != null ? text : "");
     }
@@ -103,33 +139,15 @@ public class HtmlUnitDOMToJsoupConverter {
     /**
      * Converts a W3C DOM Comment Node to a jsoup Comment
      */
-    private static Comment convertCommentNode(final org.w3c.dom.Node w3cNode) {
+    private Comment convertCommentNode(final org.w3c.dom.Node w3cNode) {
         final String commentText = w3cNode.getNodeValue();
         return new Comment(commentText != null ? commentText : "");
     }
 
     /**
-     * Converts a W3C DOM Document Node to a jsoup Document
-     */
-    private static Document convertDocumentNode(final org.w3c.dom.Node w3cNode) {
-        final Document jsoupDoc = new Document("");
-
-        // Convert child nodes (typically the root element)
-        final NodeList children = w3cNode.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            final Node jsoupChild = convert(children.item(i));
-            if (jsoupChild != null) {
-                jsoupDoc.appendChild(jsoupChild);
-            }
-        }
-
-        return jsoupDoc;
-    }
-
-    /**
      * Converts a W3C DOM CDATA Section to a jsoup DataNode
      */
-    private static DataNode convertCDataNode(final org.w3c.dom.Node w3cNode) {
+    private DataNode convertCDataNode(final org.w3c.dom.Node w3cNode) {
         final String data = w3cNode.getNodeValue();
         return new DataNode(data != null ? data : "");
     }
@@ -140,7 +158,7 @@ public class HtmlUnitDOMToJsoupConverter {
      * @param w3cDocument The W3C DOM Document to convert
      * @return The equivalent jsoup Document
      */
-    public static Document convertDocument(final org.w3c.dom.Document w3cDocument) {
+    public Document convertDocument(final org.w3c.dom.Document w3cDocument) {
         if (w3cDocument == null) {
             return null;
         }
@@ -155,12 +173,44 @@ public class HtmlUnitDOMToJsoupConverter {
      * @param w3cElement The W3C DOM Element to convert
      * @return The equivalent jsoup Element
      */
-    public static Element convertElement(final org.w3c.dom.Element w3cElement) {
+    public Element convertElement(final org.w3c.dom.Element w3cElement) {
         if (w3cElement == null) {
             return null;
         }
 
         final Node converted = convert(w3cElement);
         return (converted instanceof Element) ? (Element) converted : null;
+    }
+
+    /**
+     * Converts a W3C DOM Processing Instruction to a JSoup XmlDeclaration
+     */
+    private static XmlDeclaration convertProcessingInstruction(final org.w3c.dom.Node w3cNode) {
+        final String target = w3cNode.getNodeName();
+        final String data = w3cNode.getNodeValue();
+
+        if ("xml".equals(target)) {
+            return new XmlDeclaration("xml", false);
+        }
+
+        // For other processing instructions, create a comment as fallback
+        return new XmlDeclaration(target + " " + (data != null ? data : ""), true);
+    }
+
+    /**
+     * Converts a W3C DOM Document Type to a JSoup DocumentType
+     */
+    private DocumentType convertDocumentType(final org.w3c.dom.Node w3cNode) {
+        final org.w3c.dom.DocumentType docType = (org.w3c.dom.DocumentType) w3cNode;
+
+        final String name = docType.getName();
+        final String publicId = docType.getPublicId();
+        final String systemId = docType.getSystemId();
+
+        return new DocumentType(
+            name != null ? name : "",
+            publicId != null ? publicId : "",
+            systemId != null ? systemId : ""
+        );
     }
 }
