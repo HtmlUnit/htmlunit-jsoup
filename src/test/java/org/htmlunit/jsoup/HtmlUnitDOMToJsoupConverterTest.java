@@ -36,45 +36,59 @@ public class HtmlUnitDOMToJsoupConverterTest {
     public void empty() throws Exception {
         final String html =
                 "<html></html>";
-        test(html);
+        testDocument(html);
+        testElement(html);
     }
 
     @Test
     public void bodyWithText() throws Exception {
         final String html =
                 "<html><body>HtmlUnit</body></html>";
-        test(html);
+        testDocument(html);
+        testElement(html);
     }
 
     @Test
     public void bodyWithParagraph() throws Exception {
         final String html =
                 "<html><body><p>HtmlUnit</p></body></html>";
-        test(html);
+        testDocument(html);
+        testElement(html);
     }
 
     @Test
     public void bodyWithTitle() throws Exception {
         final String html =
                 "<html><body><h1>HtmlUnit</h1></body></html>";
-        test(html);
+        testDocument(html);
+        testElement(html);
     }
 
     @Test
     public void uppercaseTags() throws Exception {
         final String html =
                 "<HTML><BODY><H1>HtmlUnit</H1></BODY></HTML>";
-        test(html);
+        testDocument(html);
+        testElement(html);
     }
 
     @Test
     public void mixedcaseTags() throws Exception {
         final String html =
                 "<HTML><BodY><h1>HtmlUnit</H1></BODY></html>";
-        test(html);
+        testDocument(html);
+        testElement(html);
     }
 
-    private void test(final String html) throws Exception {
+    @Test
+    public void formattedText() throws Exception {
+        final String html =
+                "<html><body><p><b>HtmlUnit</b> <span><span>is</span> a</span> <span>gre<i>a</i>t</span> <span>framwork</span>.</p></body></html>";
+        testDocument(html);
+        testElement(html);
+    }
+
+    private void testDocument(final String html) throws Exception {
         try (WebClient webClient = new WebClient()) {
             final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
 
@@ -84,6 +98,20 @@ public class HtmlUnitDOMToJsoupConverterTest {
             final Node jsoupNode = Jsoup.parse(html);
 
             JsoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
+        }
+    }
+
+    private void testElement(final String html) throws Exception {
+        try (WebClient webClient = new WebClient()) {
+            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
+
+            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
+            final Node htmlunitNode = converter.convert(page.getDocumentElement());
+
+            final Node jsoupNode = Jsoup.parse(html);
+
+            Assertions.assertEquals(1, jsoupNode.childNodes().size());
+            JsoupAssertions.assertNodesEqual(jsoupNode.childNode(0), htmlunitNode);
         }
     }
 }
