@@ -23,11 +23,7 @@ import org.junit.jupiter.api.Test;
 
 public class HtmlUnitDOMToJsoupConverterTest {
 
-    @Test
-    public void empty() throws Exception {
-        final String html =
-                "<html></html>";
-
+    private void test(final String html) throws Exception {
         try (WebClient webClient = new WebClient()) {
             final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
 
@@ -37,85 +33,47 @@ public class HtmlUnitDOMToJsoupConverterTest {
 
             JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
         }
+    }
+
+    @Test
+    public void empty() throws Exception {
+        final String html =
+                "<html></html>";
+        test(html);
     }
 
     @Test
     public void bodyWithText() throws Exception {
         final String html =
                 "<html><body>HtmlUnit</body></html>";
-
-        try (WebClient webClient = new WebClient()) {
-            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
-
-            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
-            final Node htmlunitNode = converter.convert(page);
-            final Node jsoupNode = Jsoup.parse(html);
-
-            JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
-        }
+        test(html);
     }
 
     @Test
     public void bodyWithParagraph() throws Exception {
         final String html =
                 "<html><body><p>HtmlUnit</p></body></html>";
-
-        try (WebClient webClient = new WebClient()) {
-            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
-
-            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
-            final Node htmlunitNode = converter.convert(page);
-            final Node jsoupNode = Jsoup.parse(html);
-
-            JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
-        }
+        test(html);
     }
 
     @Test
     public void bodyWithTitle() throws Exception {
         final String html =
                 "<html><body><h1>HtmlUnit</h1></body></html>";
-
-        try (WebClient webClient = new WebClient()) {
-            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
-
-            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
-            final Node htmlunitNode = converter.convert(page);
-            final Node jsoupNode = Jsoup.parse(html);
-
-            JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
-        }
+        test(html);
     }
 
     @Test
     public void uppercaseTags() throws Exception {
         final String html =
                 "<HTML><BODY><H1>HtmlUnit</H1></BODY></HTML>";
-
-        try (WebClient webClient = new WebClient()) {
-            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
-
-            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
-            final Node htmlunitNode = converter.convert(page);
-            final Node jsoupNode = Jsoup.parse(html);
-
-            JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
-        }
+        test(html);
     }
 
     @Test
     public void mixedcaseTags() throws Exception {
         final String html =
                 "<HTML><BodY><h1>HtmlUnit</H1></BODY></html>";
-
-        try (WebClient webClient = new WebClient()) {
-            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
-
-            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
-            final Node htmlunitNode = converter.convert(page);
-            final Node jsoupNode = Jsoup.parse(html);
-
-            JSoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
-        }
+        test(html);
     }
 }
