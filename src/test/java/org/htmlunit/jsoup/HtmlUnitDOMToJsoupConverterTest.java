@@ -19,21 +19,17 @@ import org.htmlunit.html.HtmlPage;
 import org.htmlunit.jsoup.utils.JsoupAssertions;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Node;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class HtmlUnitDOMToJsoupConverterTest {
 
-    private void test(final String html) throws Exception {
-        try (WebClient webClient = new WebClient()) {
-            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
+    @Test
+    public void convertNull() throws Exception {
+        final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
+        final Node htmlunitNode = converter.convert(null);
 
-            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
-            final Node htmlunitNode = converter.convert(page);
-
-            final Node jsoupNode = Jsoup.parse(html);
-
-            JsoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
-        }
+        Assertions.assertNull(htmlunitNode);
     }
 
     @Test
@@ -76,5 +72,18 @@ public class HtmlUnitDOMToJsoupConverterTest {
         final String html =
                 "<HTML><BodY><h1>HtmlUnit</H1></BODY></html>";
         test(html);
+    }
+
+    private void test(final String html) throws Exception {
+        try (WebClient webClient = new WebClient()) {
+            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
+
+            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
+            final Node htmlunitNode = converter.convert(page);
+
+            final Node jsoupNode = Jsoup.parse(html);
+
+            JsoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode);
+        }
     }
 }

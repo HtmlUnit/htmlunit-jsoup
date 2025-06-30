@@ -82,17 +82,20 @@ public final class HtmlUnitDOMToJsoupConverter {
                 return convertElement(w3cNode, jsoupElement);
 
             case org.w3c.dom.Node.TEXT_NODE:
-                return convertTextNode(w3cNode);
+                final String text = w3cNode.getNodeValue();
+                return new TextNode(text != null ? text : "");
 
             case org.w3c.dom.Node.COMMENT_NODE:
-                return convertCommentNode(w3cNode);
+                final String commentText = w3cNode.getNodeValue();
+                return new Comment(commentText != null ? commentText : "");
 
             case org.w3c.dom.Node.DOCUMENT_NODE:
                 final Document jsoupDoc = new Document("");
                 return convertElement(w3cNode, jsoupDoc);
 
             case org.w3c.dom.Node.CDATA_SECTION_NODE:
-                return convertCDataNode(w3cNode);
+                final String data = w3cNode.getNodeValue();
+                return new DataNode(data != null ? data : "");
 
             case org.w3c.dom.Node.PROCESSING_INSTRUCTION_NODE:
                 return convertProcessingInstruction(w3cNode);
@@ -126,30 +129,6 @@ public final class HtmlUnitDOMToJsoupConverter {
         }
 
         return jsoupElement;
-    }
-
-    /**
-     * Converts a W3C DOM Text Node to a jsoup TextNode
-     */
-    private TextNode convertTextNode(final org.w3c.dom.Node w3cNode) {
-        final String text = w3cNode.getNodeValue();
-        return new TextNode(text != null ? text : "");
-    }
-
-    /**
-     * Converts a W3C DOM Comment Node to a jsoup Comment
-     */
-    private Comment convertCommentNode(final org.w3c.dom.Node w3cNode) {
-        final String commentText = w3cNode.getNodeValue();
-        return new Comment(commentText != null ? commentText : "");
-    }
-
-    /**
-     * Converts a W3C DOM CDATA Section to a jsoup DataNode
-     */
-    private DataNode convertCDataNode(final org.w3c.dom.Node w3cNode) {
-        final String data = w3cNode.getNodeValue();
-        return new DataNode(data != null ? data : "");
     }
 
     /**
