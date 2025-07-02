@@ -1,11 +1,12 @@
 # HtmlUnit - jsoup support
 
-This is the code repository of the WebSocket support used by HtmlUnit.
+This is the code repository of the HtmlUnit to jsoup bride.
 
-The default WebSocket client used by HtmlUnit is based on Jetty 9. To avoid conflicts in projects
-using different versions of Jetty, this repo provides a shaded version of the jetty websocket stuff.
+The htmlunit-jsoup library provides helper utilities to bridge the gap between HtmlUnit and jsoup.
+This converter enables seamless integration between HtmlUnit's comprehensive browser simulation capabilities 
+and all the jsoup based libraries.
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-websocket-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-websocket-client)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup)
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
@@ -15,7 +16,7 @@ using different versions of Jetty, this repo provides a shaded version of the je
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 4.13.0 / June 03, 2025
+### Latest release Version (not released so far)
 
 ### Maven
 
@@ -25,7 +26,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>htmlunit-jsoup</artifactId>
-    <version>4.13.0</version>
+    <version>4.14.0</version>
 </dependency>
 ```
 
@@ -34,7 +35,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'htmlunit-jsoup', version: '4.13.0'
+implementation group: 'org.htmlunit', name: 'htmlunit-jsoup', version: '4.14.0'
 ```
 
 ### Last CI build
@@ -54,20 +55,22 @@ If you use maven please add:
 
 You have to add the sonatype snapshot repository to your pom `repositories` section also:
 
-    <repository>
-        <id>OSS Sonatype snapshots</id>
-        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
-        <snapshots>
-            <enabled>true</enabled>
-            <updatePolicy>always</updatePolicy>
-        </snapshots>
-        <releases>
-            <enabled>false</enabled>
-        </releases>
-    </repository>
+    <repositories>
+        <repository>
+            <name>Central Portal Snapshots</name>
+            <id>central-portal-snapshots</id>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
 
-## Start HtmlUnit - Websocket Client Development
+## Start HtmlUnit - Jsoup Development
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 See deployment for notes on how to deploy the project on a live system.
@@ -130,14 +133,14 @@ This part is intended for committer who are packaging a release.
     * click Releases > Draft new release
     * fill the tag and title field with the release number (e.g. 4.0.0)
     * append 
-        * htmlunit-websocket-client-4.x.x.jar
-        * htmlunit-websocket-client-4.x.x.jar.asc 
-        * htmlunit-websocket-client-4.x.x.pom
-        * htmlunit-websocket-client-4.x.x.pom.asc 
-        * htmlunit-websocket-client-4.x.x-javadoc.jar
-        * htmlunit-websocket-client-4.x.x-javadoc.jar.asc
-        * htmlunit-websocket-client-4.x.x-sources.jar
-        * htmlunit-websocket-client-4.x.x-sources.jar.asc
+        * htmlunit-jsoup-4.x.x.jar
+        * htmlunit-jsoup-4.x.x.jar.asc 
+        * htmlunit-jsoup-4.x.x.pom
+        * htmlunit-jsoup-4.x.x.pom.asc 
+        * htmlunit-jsoup-4.x.x-javadoc.jar
+        * htmlunit-jsoup-4.x.x-javadoc.jar.asc
+        * htmlunit-jsoup-4.x.x-sources.jar
+        * htmlunit-jsoup-4.x.x-sources.jar.asc
     * and publish the release 
 
 * Update the version number in pom.xml to start next snapshot development
@@ -146,7 +149,6 @@ This part is intended for committer who are packaging a release.
 ## Authors
 
 * **RBRi**
-* all the contributors to the [Jetty project](https://github.com/jetty/jetty.project)
 
 ## License
 
