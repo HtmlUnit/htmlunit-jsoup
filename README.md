@@ -40,10 +40,10 @@ implementation group: 'org.htmlunit', name: 'htmlunit-jsoup', version: '4.14.0'
 
 ### Last CI build
 The latest builds are available from our
-[Jenkins CI build server](https://jenkins.wetator.org/job/HtmlUnit%20-%20Websocket%20Client/ "HtmlUnit - Websocket Client CI")
+[Jenkins CI build server](https://jenkins.wetator.org/job/HtmlUnit%20-%20Jsoup/ "HtmlUnit - Jsoup CI")
 
-htmlunit-websocket-client
-[![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+websocket+-+client)](https://jenkins.wetator.org/job/HtmlUnit%20-%20Websocket%20Client/)
+htmlunit-jsoup
+[![Build Status](https://jenkins.wetator.org/buildStatus/icon?job=HtmlUnit+-+Jsoup)](https://jenkins.wetator.org/job/HtmlUnit%20-%20Jsoup/)
 
 If you use maven please add:
 
@@ -129,7 +129,7 @@ This part is intended for committer who are packaging a release.
   - release the package and wait until it is processed
 
 * Create the version on Github
-    * login to Github and open project https://github.com/HtmlUnit/htmlunit-websocket-client
+    * login to Github and open project https://github.com/HtmlUnit/htmlunit-jsoup
     * click Releases > Draft new release
     * fill the tag and title field with the release number (e.g. 4.0.0)
     * append 
