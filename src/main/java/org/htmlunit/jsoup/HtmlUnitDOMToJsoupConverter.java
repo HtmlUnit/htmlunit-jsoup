@@ -14,6 +14,8 @@
  */
 package org.htmlunit.jsoup;
 
+import java.util.Locale;
+
 import org.jsoup.nodes.Comment;
 import org.jsoup.nodes.DataNode;
 import org.jsoup.nodes.Document;
@@ -60,7 +62,7 @@ public final class HtmlUnitDOMToJsoupConverter {
     /**
      * Private ctor - use the builder to create a new converter.
      */
-    private HtmlUnitDOMToJsoupConverter() {
+    HtmlUnitDOMToJsoupConverter() {
         super();
     }
 
@@ -77,7 +79,7 @@ public final class HtmlUnitDOMToJsoupConverter {
 
         switch (w3cNode.getNodeType()) {
             case org.w3c.dom.Node.ELEMENT_NODE:
-                final String tagName = w3cNode.getNodeName().toLowerCase();
+                final String tagName = w3cNode.getNodeName().toLowerCase(Locale.ROOT);
                 final Element jsoupElement = new Element(Tag.valueOf(tagName), null);
                 return convertNode(w3cNode, jsoupElement);
 
