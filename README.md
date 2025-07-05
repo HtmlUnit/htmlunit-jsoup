@@ -2,10 +2,12 @@
 
 This is the code repository of the HtmlUnit to jsoup bride.
 
-The htmlunit-jsoup library provides helper utilities to bridge the gap between
-[HtmlUnit](https://htmlunit.org) and [jsoup](https://jsoup.org/).
-This converter enables seamless integration between HtmlUnit's comprehensive browser simulation 
-capabilities and all the jsoup based libraries.
+The htmlunit-jsoup library provides helper utilities 
+to bridge the gap between [HtmlUnit](https://htmlunit.org) and [jsoup](https://jsoup.org/).
+This converter enables seamless integration between HtmlUnit's comprehensive browser simulation capabilities 
+and all the jsoup-based libraries, allowing you to leverage the full ecosystem of jsoup tools 
+while maintaining HtmlUnit's JavaScript execution and dynamic content handling.
+
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup)
 
