@@ -2,13 +2,20 @@
 
 This is the code repository of the HtmlUnit to jsoup bride.
 
-The htmlunit-jsoup library provides helper utilities to bridge the gap between HtmlUnit and jsoup.
-This converter enables seamless integration between HtmlUnit's comprehensive browser simulation capabilities 
-and all the jsoup based libraries.
+The htmlunit-jsoup library provides helper utilities to bridge the gap between
+[HtmlUnit](https://htmlunit.org) and [jsoup](https://jsoup.org/).
+This converter enables seamless integration between HtmlUnit's comprehensive browser simulation 
+capabilities and all the jsoup based libraries.
 
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup)
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
+
+## Sample use cases
+
+**[FlexmarkConverterSample](https://github.com/HtmlUnit/htmlunit-jsoup/blob/main/src/test/java/org/htmlunit/jsoup/example/FlexmarkConverterSample.java)**
+
+The FlexmarkConverterSample class demonstrates advanced HTML-to-Markdown conversion using the [Flexmark](https://github.com/vsch/flexmark-java) library.
 
 ### Project News
 
