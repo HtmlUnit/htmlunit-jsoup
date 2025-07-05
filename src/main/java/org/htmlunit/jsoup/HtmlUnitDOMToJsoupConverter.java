@@ -79,7 +79,7 @@ public final class HtmlUnitDOMToJsoupConverter {
             case org.w3c.dom.Node.ELEMENT_NODE:
                 final String tagName = w3cNode.getNodeName().toLowerCase();
                 final Element jsoupElement = new Element(Tag.valueOf(tagName), null);
-                return convertElement(w3cNode, jsoupElement);
+                return convertNode(w3cNode, jsoupElement);
 
             case org.w3c.dom.Node.TEXT_NODE:
                 final String text = w3cNode.getNodeValue();
@@ -91,7 +91,7 @@ public final class HtmlUnitDOMToJsoupConverter {
 
             case org.w3c.dom.Node.DOCUMENT_NODE:
                 final Document jsoupDoc = new Document("");
-                return convertElement(w3cNode, jsoupDoc);
+                return convertNode(w3cNode, jsoupDoc);
 
             case org.w3c.dom.Node.CDATA_SECTION_NODE:
                 final String data = w3cNode.getNodeValue();
@@ -104,12 +104,12 @@ public final class HtmlUnitDOMToJsoupConverter {
                 return convertDocumentType(w3cNode);
 
             default:
-                // For unsupported node types, return null or handle as needed
+                // For unsupported node types, return null
                 return null;
         }
     }
 
-    private Element convertElement(final org.w3c.dom.Node w3cNode, final Element jsoupElement) {
+    private Element convertNode(final org.w3c.dom.Node w3cNode, final Element jsoupElement) {
         // Convert attributes
         final NamedNodeMap attributes = w3cNode.getAttributes();
         if (attributes != null) {

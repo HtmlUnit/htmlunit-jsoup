@@ -12,4 +12,6 @@
     <suppress checks="JavadocMethod" files=".*[\\/]src[\\/]test"/>
     <suppress checks="LineLength" files=".*[\\/]src[\\/]test"/>
     <suppress checks="Header" files=".+.properties"/>
+
+    <suppress checks="RegexpMultiline" files="FlexmarkConverterSample.java"/>
 </suppressions>
