@@ -3,4 +3,7 @@
     <suppress>
         <cve>CVE-2024-6763</cve>
     </suppress>
+    <suppress>
+        <cve>CVE-2025-48924</cve>
+    </suppress>
 </suppressions>

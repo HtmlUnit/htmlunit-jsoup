@@ -36,15 +36,18 @@
         <junit.version>5.13.1</junit.version>
         <junit-launcher.version>1.13.1</junit-launcher.version>
 
-        <checkstyle.version>10.25.0</checkstyle.version>
+        <checkstyle.version>10.26.1</checkstyle.version>
         <spotbugs.version>4.9.3</spotbugs.version>
-        <pmd.version>7.14.0</pmd.version>
+        <pmd.version>7.15.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version>
 
         <!-- plugins -->
         <central-publishing.version>0.8.0</central-publishing.version>
         <javadoc-plugin.version>3.11.2</javadoc-plugin.version>
-        
+        <maven-spotbugs-plugin.version>4.9.3.2</maven-spotbugs-plugin.version>
+        <maven-enforcer-plugin.version>3.6.1</maven-enforcer-plugin.version>
+        <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
+        <maven-pmd-plugin.version>3.27.0</maven-pmd-plugin.version>
     </properties>
 
     <dependencies>
@@ -93,7 +96,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>${maven-enforcer-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -192,7 +195,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.7</version>
+                <version>${maven-gpg-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -253,7 +256,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.9.3.0</version>
+                <version>${maven-spotbugs-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
@@ -268,7 +271,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.26.0</version>
+                <version>${maven-pmd-plugin.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
