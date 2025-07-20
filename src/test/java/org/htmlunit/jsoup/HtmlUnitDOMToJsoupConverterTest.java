@@ -18,6 +18,7 @@ import org.htmlunit.WebClient;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.jsoup.utils.JsoupAssertions;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Node;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -35,41 +36,55 @@ public class HtmlUnitDOMToJsoupConverterTest {
     @Test
     public void empty() throws Exception {
         final String html =
-                "<html></html>";
+                "<html id='t'></html>";
         testDocument(html);
         testElement(html);
+
+        testElement(html, "t");
     }
 
     @Test
     public void bodyWithText() throws Exception {
         final String html =
-                "<html><body>HtmlUnit</body></html>";
+                "<html id='t1'><body id='t2'>HtmlUnit</body></html>";
         testDocument(html);
         testElement(html);
+
+        testElement(html, "t1");
+        testElement(html, "t2");
     }
 
     @Test
     public void bodyWithParagraph() throws Exception {
         final String html =
-                "<html><body><p>HtmlUnit</p></body></html>";
+                "<html><body id='t1'><p id='t2'>HtmlUnit</p></body></html>";
         testDocument(html);
         testElement(html);
+
+        testElement(html, "t1");
+        testElement(html, "t2");
     }
 
     @Test
     public void bodyWithTitle() throws Exception {
         final String html =
-                "<html><body><h1>HtmlUnit</h1></body></html>";
+                "<html><body id='t1'><h1 id='t2'>HtmlUnit</h1></body></html>";
         testDocument(html);
         testElement(html);
+
+        testElement(html, "t1");
+        testElement(html, "t2");
     }
 
     @Test
     public void uppercaseTags() throws Exception {
         final String html =
-                "<HTML><BODY><H1>HtmlUnit</H1></BODY></HTML>";
+                "<HTML><BODY id='t1'><H1 id='t2'>HtmlUnit</H1></BODY></HTML>";
         testDocument(html);
         testElement(html);
+
+        testElement(html, "t1");
+        testElement(html, "t2");
     }
 
     @Test
@@ -83,12 +98,18 @@ public class HtmlUnitDOMToJsoupConverterTest {
     @Test
     public void formattedText() throws Exception {
         final String html =
-                "<html><body><p><b>HtmlUnit</b> <span><span>is</span> a</span> <span>gre<i>a</i>t</span> <span>framwork</span>.</p></body></html>";
+                "<html><body><p id='t1'><b id='t2'>HtmlUnit</b> <span id='t3'><span id='t4'>is</span> a</span> <span>gre<i>a</i>t</span> <span id='t5'>framwork</span>.</p></body></html>";
         testDocument(html);
         testElement(html);
+
+        testElement(html, "t1");
+        testElement(html, "t2");
+        testElement(html, "t3");
+        testElement(html, "t4");
+        testElement(html, "t5");
     }
 
-    private void testDocument(final String html) throws Exception {
+    private static void testDocument(final String html) throws Exception {
         try (WebClient webClient = new WebClient()) {
             final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
 
@@ -101,7 +122,7 @@ public class HtmlUnitDOMToJsoupConverterTest {
         }
     }
 
-    private void testElement(final String html) throws Exception {
+    private static void testElement(final String html) throws Exception {
         try (WebClient webClient = new WebClient()) {
             final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
 
@@ -112,6 +133,23 @@ public class HtmlUnitDOMToJsoupConverterTest {
 
             Assertions.assertEquals(1, jsoupNode.childNodes().size());
             JsoupAssertions.assertNodesEqual(jsoupNode.childNode(0), htmlunitNode);
+        }
+    }
+
+    private static void testElement(final String html, final String id) throws Exception {
+        try (WebClient webClient = new WebClient()) {
+            final HtmlPage page = webClient.loadHtmlCodeIntoCurrentWindow(html);
+
+            final org.w3c.dom.Node htmlunitElementById = page.getElementById(id);
+
+            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
+            final Node htmlunitNode = converter.convertWholeTree(htmlunitElementById);
+
+            final Document jsoupNode = Jsoup.parse(html);
+            final Node jsoupNodeById = jsoupNode.selectFirst("#" + id);
+
+            JsoupAssertions.assertNodesEqual(jsoupNodeById, htmlunitNode);
+            JsoupAssertions.assertNodesEqual(jsoupNode, htmlunitNode.root());
         }
     }
 }

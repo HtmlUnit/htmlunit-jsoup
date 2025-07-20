@@ -15,6 +15,8 @@
 package org.htmlunit.jsoup.example;
 
 import org.htmlunit.WebClient;
+import org.htmlunit.html.DomNode;
+import org.htmlunit.html.DomNodeList;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.jsoup.HtmlUnitDOMToJsoupConverter;
 import org.jsoup.nodes.Document;
@@ -90,6 +92,57 @@ public class FlexmarkConverterSample {
      * <p>This test method:
      * <ul>
      * <li>Fetches a web page using HtmlUnit's WebClient</li>
+     * <li>Selects a specific element using a CSS selector (".highlight")</li>
+     * <li>Converts only the selected element to Markdown using Flexmark</li>
+     * <li>Prints the resulting Markdown to the console</li>
+     * </ul>
+     *
+     * <p>This approach is useful when you only need to convert a specific section
+     * of a web page rather than the entire content, which can result in cleaner
+     * and more focused Markdown output.
+     *
+     * <p><strong>Note:</strong>We use the <strong>convertWholeTree(Node)</strong> method instead of
+     * convertElement(Element) here. This method converts the whole page and returns
+     * the converted node for the provided one. This means the whole document
+     * DOM structure is set up to support futher processing (like getting the parent).
+     *
+     * @throws Exception if any error occurs during web page fetching, element selection, or conversion
+     */
+    @Test
+    public void convertPagePartHtmlUnitSelectedToMarkdown() throws Exception {
+        final String url = "https://docs.mendix.com/apidocs-mxsdk/apidocs/pluggable-widgets-property-types/";
+        final String contentSelector = ".highlight";
+
+        try (WebClient client = new WebClient()) {
+            client.getOptions().setThrowExceptionOnScriptError(false);
+            client.getOptions().setJavaScriptEnabled(true);
+            client.getOptions().setCssEnabled(false);
+
+            final HtmlPage page = client.getPage(url);
+            final DomNodeList<DomNode> divs = page.querySelectorAll(contentSelector);
+            final DomNode htmlUnitNode = divs.get(0);
+
+            // convert from HtmlUnit into Jsoup world
+            final HtmlUnitDOMToJsoupConverter converter = HtmlUnitDOMToJsoupConverter.builder().build();
+            final org.jsoup.nodes.Node jsoupNode = converter.convertWholeTree(htmlUnitNode);
+
+            final MutableDataSet options = new MutableDataSet();
+            options.set(FlexmarkHtmlConverter.EXT_INLINE_LINK, LinkConversion.MARKDOWN_EXPLICIT);
+
+            final String markdown = FlexmarkHtmlConverter.builder(options).build().convert(jsoupNode);
+            System.out.println(markdown);
+        }
+        catch (final Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Demonstrates converting a specific part of a web page to Markdown format using CSS selectors.
+     *
+     * <p>This test method:
+     * <ul>
+     * <li>Fetches a web page using HtmlUnit's WebClient</li>
      * <li>Converts the entire page from HtmlUnit DOM to Jsoup Document</li>
      * <li>Selects a specific element using a CSS selector (".highlight")</li>
      * <li>Converts only the selected element to Markdown using Flexmark</li>
@@ -107,7 +160,7 @@ public class FlexmarkConverterSample {
      * @throws Exception if any error occurs during web page fetching, element selection, or conversion
      */
     @Test
-    public void convertPagePartToMarkdown() throws Exception {
+    public void convertPagePartJsoupSelectedToMarkdown() throws Exception {
         final String url = "https://docs.mendix.com/apidocs-mxsdk/apidocs/pluggable-widgets-property-types/";
         final String contentSelector = ".highlight";
 
