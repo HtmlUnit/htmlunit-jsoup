@@ -25,7 +25,7 @@ The FlexmarkConverterSample class demonstrates advanced HTML-to-Markdown convers
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version (not released so far)
+### Latest release Version 4.14.0 / July 30, 2025
 
 ### Maven
 
@@ -59,10 +59,10 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>htmlunit-jsoup</artifactId>
-        <version>4.14.0-SNAPSHOT</version>
+        <version>4.15.0-SNAPSHOT</version>
     </dependency>
 
-You have to add the sonatype snapshot repository to your pom `repositories` section also:
+You have to add the Central Portal Snapshots repository to your pom `repositories` section also:
 
     <repositories>
         <repository>
