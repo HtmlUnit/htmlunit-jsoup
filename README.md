@@ -9,7 +9,7 @@ and all the jsoup-based libraries, allowing you to leverage the full ecosystem o
 while maintaining HtmlUnit's JavaScript execution and dynamic content handling.
 
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.htmlunit/htmlunit-jsoup)
+[![Maven Central Version](https://img.shields.io/maven-central/v/org.htmlunit/htmlunit-jsoup)](https://central.sonatype.com/artifact/org.htmlunit/htmlunit-jsoup)
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
