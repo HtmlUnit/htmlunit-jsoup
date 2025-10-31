@@ -5,7 +5,7 @@
 
     <groupId>org.htmlunit</groupId>
     <artifactId>htmlunit-jsoup</artifactId>
-    <version>4.17.0</version>
+    <version>4.18.0</version>
 
     <name>HtmlUnit jsoup support</name>
     <organization>
@@ -27,7 +27,7 @@
         <maven.compiler.target>8</maven.compiler.target>
 
         <jsoup.version>1.21.2</jsoup.version>
-        <htmlunit.version>4.17.0</htmlunit.version>
+        <htmlunit.version>4.18.0</htmlunit.version>
 
         <!-- examples dependencies -->
         <flexmark.version>0.64.8</flexmark.version>
@@ -36,20 +36,21 @@
         <junit.version>5.14.0</junit.version>
         <junit-launcher.version>1.14.0</junit-launcher.version>
 
-        <checkstyle.version>11.1.0</checkstyle.version>
-        <spotbugs.version>4.9.6</spotbugs.version>
-        <pmd.version>7.17.0</pmd.version>
+        <checkstyle.version>12.1.1</checkstyle.version>
+        <spotbugs.version>4.9.8</spotbugs.version>
+        <pmd.version>7.18.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version>
 
         <!-- plugins -->
         <central-publishing.version>0.9.0</central-publishing.version>
-        <spotbugs-plugin.version>4.9.6.0</spotbugs-plugin.version>
+        <spotbugs-plugin.version>4.9.8.1</spotbugs-plugin.version>
         <enforcer-plugin.version>3.6.2</enforcer-plugin.version>
         <gpg-plugin.version>3.2.8</gpg-plugin.version>
-        <pmd-plugin.version>3.27.0</pmd-plugin.version>
+        <pmd-plugin.version>3.28.0</pmd-plugin.version>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
         <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
         <surefire-plugin.version>3.5.4</surefire-plugin.version>
+        <cyclonedx-plugin.version>2.9.1</cyclonedx-plugin.version>
     </properties>
 
     <dependencies>
@@ -309,6 +310,25 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>${cyclonedx-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <projectType>library</projectType>
+                    <outputFormat>json</outputFormat>
+                    <!-- strange but it helps -->
+                    <skipNotDeployed>false</skipNotDeployed>
+                </configuration>
             </plugin>
         </plugins>
     </build>
