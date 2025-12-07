@@ -5,7 +5,7 @@
 
     <groupId>org.htmlunit</groupId>
     <artifactId>htmlunit-jsoup</artifactId>
-    <version>4.19.0</version>
+    <version>4.20.0</version>
 
     <name>HtmlUnit jsoup support</name>
     <organization>
@@ -23,33 +23,34 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
         <additionalparam>-Xdoclint:none</additionalparam>
 
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
 
         <jsoup.version>1.21.2</jsoup.version>
-        <htmlunit.version>4.19.0</htmlunit.version>
+        <htmlunit.version>4.20.0</htmlunit.version>
 
         <!-- examples dependencies -->
         <flexmark.version>0.64.8</flexmark.version>
 
         <!-- test dependencies -->
-        <junit.version>5.14.0</junit.version>
-        <junit-launcher.version>1.14.0</junit-launcher.version>
+        <junit.version>5.14.1</junit.version>
+        <junit-launcher.version>1.14.1</junit-launcher.version>
 
-        <checkstyle.version>12.1.2</checkstyle.version>
+        <checkstyle.version>12.2.0</checkstyle.version>
         <spotbugs.version>4.9.8</spotbugs.version>
-        <pmd.version>7.18.0</pmd.version>
+        <pmd.version>7.19.0</pmd.version>
         <dependencycheck.version>12.1.9</dependencycheck.version>
 
         <!-- plugins -->
         <central-publishing.version>0.9.0</central-publishing.version>
-        <spotbugs-plugin.version>4.9.8.1</spotbugs-plugin.version>
+        <spotbugs-plugin.version>4.9.8.2</spotbugs-plugin.version>
         <enforcer-plugin.version>3.6.2</enforcer-plugin.version>
         <gpg-plugin.version>3.2.8</gpg-plugin.version>
         <pmd-plugin.version>3.28.0</pmd-plugin.version>
         <compiler-plugin.version>3.14.1</compiler-plugin.version>
         <jar-plugin.version>3.5.0</jar-plugin.version>
-        <release-plugin.version>3.2.0</release-plugin.version>
+        <release-plugin.version>3.3.0</release-plugin.version>
+        <source-plugin.version>3.4.0</source-plugin.version>
         <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
         <surefire-plugin.version>3.5.4</surefire-plugin.version>
         <cyclonedx-plugin.version>2.9.1</cyclonedx-plugin.version>
@@ -171,7 +172,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${source-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -295,6 +296,7 @@
                   </rulesets>
               </configuration>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -313,6 +315,7 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
