@@ -25,7 +25,7 @@ The FlexmarkConverterSample class demonstrates advanced HTML-to-Markdown convers
 
 [HtmlUnit@mastodon](https://fosstodon.org/@HtmlUnit) | [HtmlUnit@bsky](https://bsky.app/profile/htmlunit.bsky.social) | [HtmlUnit@Twitter](https://twitter.com/HtmlUnit)
 
-### Latest release Version 5.0.0 / May 25, 2026
+### Latest release Version 5.2.0 / June 20, 2026
 
 ### Maven
 
@@ -35,7 +35,7 @@ Add to your `pom.xml`:
 <dependency>
     <groupId>org.htmlunit</groupId>
     <artifactId>htmlunit-jsoup</artifactId>
-    <version>5.0.0</version>
+    <version>5.2.0</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ Add to your `pom.xml`:
 Add to your `build.gradle`:
 
 ```groovy
-implementation group: 'org.htmlunit', name: 'htmlunit-jsoup', version: '5.0.0'
+implementation group: 'org.htmlunit', name: 'htmlunit-jsoup', version: '5.2.0'
 ```
 
 ### Last CI build
@@ -59,7 +59,7 @@ If you use maven please add:
     <dependency>
         <groupId>org.htmlunit</groupId>
         <artifactId>htmlunit-jsoup</artifactId>
-        <version>5.1.0-SNAPSHOT</version>
+        <version>5.3.0-SNAPSHOT</version>
     </dependency>
 
 You have to add the Central Portal Snapshots repository to your pom `repositories` section also:
