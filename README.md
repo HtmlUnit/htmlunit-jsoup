@@ -1,6 +1,6 @@
 # HtmlUnit - jsoup support
 
-This is the code repository of the HtmlUnit to jsoup bride.
+This is the code repository of the HtmlUnit to jsoup bridge.
 
 The htmlunit-jsoup library provides helper utilities 
 to bridge the gap between [HtmlUnit](https://htmlunit.org) and [jsoup](https://jsoup.org/).
