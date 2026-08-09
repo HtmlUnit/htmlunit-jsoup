@@ -108,6 +108,12 @@
 
     <module name="TreeWalker">
 
+        <module name="EmptyLineSeparator">
+            <property name="allowMultipleEmptyLines" value="false"/>
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false"/>
+            <property name="tokens" value="IMPORT, STATIC_IMPORT, CLASS_DEF, INTERFACE_DEF, ENUM_DEF, STATIC_INIT, INSTANCE_INIT, METHOD_DEF, CTOR_DEF, RECORD_DEF, COMPACT_CTOR_DEF"/>
+        </module>
+
         <property name="tabWidth" value="4"/>
 
         <module name="AnnotationUseStyle"/>
@@ -136,11 +142,8 @@
         <module name="JavadocVariable">
             <property name="accessModifiers" value="protected"/>
         </module>
-        <module name="JavadocStyle">
-            <property name="scope" value="protected"/>
-            <property name="checkFirstSentence" value="true"/>
-            <property name="checkEmptyJavadoc" value="false"/>
-            <property name="checkHtml" value="true"/>
+        <module name="SummaryJavadoc">
+            <property name="violateExecutionOnNonTightHtml" value="true"/>
         </module>
         <module name="InvalidJavadocPosition"/>
         <module name="JavadocContentLocation"/>
